@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointment Letter - {{ employee_name }}</title>
+    <style>
+        @page {
+            margin: 2cm;
+            size: A4;
+        }
+
+        body {
+            font-family: 'Times New Roman', serif;
+            line-height: 1.6;
+            color: #000;
+            margin: 0;
+            background-color: #fff;
+        }
+
+        .letter-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px;
+            background: white;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            border-radius: 10px;
+        }
+
+        .letterhead {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 3px solid #6B46C1;
+            padding-bottom: 20px;
+        }
+
+        .company-logo {
+            width: 200px;
+            height: auto;
+            margin-bottom: 15px;
+        }
+
+        .company-name {
+            font-size: 28pt;
+            font-weight: bold;
+            color: #6B46C1;
+            margin-bottom: 5px;
+            letter-spacing: 2px;
+        }
+
+        .company-address {
+            font-size: 11pt;
+            color: #666;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+
+        .document-title {
+            color: #6B46C1;
+            font-size: 22pt;
+            font-weight: bold;
+            margin: 30px 0;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .confidential {
+            text-align: right;
+            color: #dc3545;
+            font-weight: bold;
+            margin-bottom: 20px;
+            font-size: 12pt;
+            text-transform: uppercase;
+        }
+
+        .header-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            align-items: flex-start;
+        }
+
+        .date-section {
+            text-align: right;
+            font-weight: bold;
+        }
+
+        .recipient-section {
+            margin-bottom: 30px;
+        }
+
+        .recipient-name {
+            font-weight: bold;
+            font-size: 14pt;
+            margin-bottom: 10px;
+        }
+
+        .subject {
+            font-weight: bold;
+            margin: 25px 0;
+            text-decoration: underline;
+            font-size: 13pt;
+        }
+
+        .salutation {
+            margin-bottom: 20px;
+            font-size: 12pt;
+        }
+
+        .content {
+            text-align: justify;
+            font-size: 11pt;
+            line-height: 1.7;
+        }
+
+        .content p {
+            margin-bottom: 15px;
+        }
+
+        .intro-paragraph {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-left: 4px solid #6B46C1;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .employment-details {
+            background-color: #f3f0ff;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 25px 0;
+            border: 1px solid #6B46C1;
+        }
+
+        .employment-details h3 {
+            color: #6B46C1;
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 14pt;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding: 5px 0;
+            border-bottom: 1px dotted #ccc;
+        }
+
+        .detail-label {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .detail-value {
+            color: #6B46C1;
+            font-weight: bold;
+        }
+
+        .section-heading {
+            color: #6B46C1;
+            font-size: 16pt;
+            font-weight: bold;
+            margin: 35px 0 20px 0;
+            border-bottom: 2px solid #6B46C1;
+            padding-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .terms-list {
+            margin: 20px 0;
+            padding-left: 25px;
+            counter-reset: term-counter;
+        }
+
+        .terms-list li {
+            margin-bottom: 15px;
+            text-align: justify;
+            line-height: 1.6;
+            counter-increment: term-counter;
+            position: relative;
+        }
+
+        .terms-list li::marker {
+            font-weight: bold;
+            color: #6B46C1;
+        }
+
+        .term-highlight {
+            background-color: #fff3cd;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+
+        .important-clause {
+            background-color: #fff3cd;
+            border: 1px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+            border-left: 4px solid #ffc107;
+        }
+
+        .acknowledgment {
+            background-color: #f0f8ff;
+            padding: 25px;
+            margin: 40px 0;
+            border: 2px solid #6B46C1;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .acknowledgment p {
+            margin-bottom: 15px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .signature-section {
+            margin-top: 60px;
+            page-break-inside: avoid;
+        }
+
+        .signature-header {
+            text-align: center;
+            font-weight: bold;
+            font-size: 14pt;
+            color: #6B46C1;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+        }
+
+        .signature-table {
+            width: 100%;
+            margin-top: 30px;
+        }
+
+        .signature-cell {
+            width: 50%;
+            text-align: center;
+            vertical-align: top;
+            padding: 20px;
+        }
+
+        .signature-line {
+            border-top: 2px solid #000;
+            margin: 40px auto 10px auto;
+            width: 200px;
+        }
+
+        .signature-name {
+            font-weight: bold;
+            margin: 10px 0 5px 0;
+            font-size: 12pt;
+        }
+
+        .signature-title {
+            font-size: 10pt;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .date-line {
+            margin-top: 20px;
+            font-size: 10pt;
+        }
+
+        .footer-note {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 9pt;
+            color: #666;
+            border-top: 1px solid #ddd;
+            padding-top: 15px;
+        }
+
+        .nda-section {
+            background-color: #f8f9fa;
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 8px;
+            border-left: 4px solid #6B46C1;
+        }
+
+        .penalty-clause {
+            background-color: #ffe6e6;
+            border: 2px solid #dc3545;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        @media print {
+            body {
+                background-color: white;
+            }
+
+            .letter-container {
+                box-shadow: none;
+                border-radius: 0;
+                padding: 20px;
+            }
+
+            .signature-section {
+                page-break-inside: avoid;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .letter-container {
+                padding: 20px;
+                margin: 10px;
+            }
+
+            .company-name {
+                font-size: 20pt;
+            }
+
+            .document-title {
+                font-size: 18pt;
+            }
+
+            .header-info {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .date-section {
+                text-align: left;
+            }
+
+            .detail-row {
+                flex-direction: column;
+                gap: 5px;
+            }
+
+            .signature-table {
+                display: block;
+            }
+
+            .signature-cell {
+                display: block;
+                width: 100%;
+                margin-bottom: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="letter-container">
+        <!-- Letterhead -->
+        <div class="letterhead">
+            {% if config.COMPANY_LOGO_PATH %}
+            <img src="{{ config.COMPANY_LOGO_PATH }}" alt="Company Logo" class="company-logo" />
+            {% endif %}
+            <div class="company-name">{{ config.COMPANY_NAME }}</div>
+            <div class="company-address">
+                {{ config.COMPANY_ADDRESS }}<br>
+                Email: {{ config.DEFAULT_SENDER_EMAIL }} |
+                Website: {{ config.COMPANY_WEBSITE }}
+            </div>
+        </div>
+
+        <!-- Document Title -->
+        <h1 class="document-title">Appointment Letter</h1>
+
+        <!-- Header Information -->
+        <div class="header-info">
+            <div class="recipient-section">
+                <div class="recipient-name">{{ employee_name }}</div>
+            </div>
+            <div class="date-section">
+                <strong>{{ issue_date or date.today().strftime('%d %B %Y') if date else (datetime.now().strftime('%d %B %Y')) }}</strong>
+            </div>
+        </div>
+
+        <!-- Confidential Notice -->
+        <p class="confidential">Confidential</p>
+
+        <!-- Subject -->
+        <p class="subject"><strong>Subject:</strong> Agreement</p>
+
+        <!-- Salutation -->
+        <p class="salutation">Dear {{ employee_name.split()[0] if employee_name else "Employee" }},</p>
+
+        <!-- Content -->
+        <div class="content">
+            <div class="intro-paragraph">
+            <p>With reference to your application and the subsequent interview you had with us, we are pleased to appoint you to the position of <strong>"{{ designation }}"</strong> at {{ config.COMPANY_NAME }}.</p>
+            </div>
+
+            <p>You joined our organization on <strong>{{ date_of_joining.strftime('%d %B %Y') if date_of_joining else "Date of Joining" }}</strong>. Following are the Terms & Conditions which have to be followed by all our employees. Acceptance and Acknowledgment by you of this appointment letter will make this a formal contract of employment between you and the company.</p>
+
+            <h2 class="section-heading">Terms and Conditions of Employment</h2>
+
+            <ul class="terms-list">
+                <li>You undertake to perform functions in relation to <strong>"{{ designation }}"</strong> for the Company and agree to perform such duties and carry out such functions, as may be assigned/entrusted to you by the board of directors and the management of the Company or any other person appointed by the board of directors/management of the Company on that behalf. Additional responsibilities will be laid down from time to time by your line manager and you will also be responsible for discharging any duties that may be assigned to you by your superiors.</li>
+
+                <li>All employees are required to comply with company policies/guidelines, which shall be communicated by the Company verbally and in writing during the course of their employment with the Company. These policies include those related to HR policies and any other matter deemed appropriate by the management of the company. Such Company policies shall be available with the HR Department and you are expected to keep yourself apprised of the same from time to time.</li>
+
+                <li>From the date of your joining service in {{ config.COMPANY_NAME }} (hereinafter referred to as 'Company') you will be included in the full time roles of the Company.</li>
+
+                <li>During the term of your employment with the Company, you may not engage in any employment or act in any way, which either conflicts with your duties and obligations to the Company, or is contrary to the policies or the interests of the Company.</li>
+
+                <li>During the term of your employment with the Company, you are required to disclose all material and relevant information, which may either affect your employment with the Company currently or in the future or may be in conflict with the terms of your employment with the Company, either directly or indirectly. If at any time during your employment, the Company becomes aware that you have suppressed any material or relevant information required to be disclosed by you, the Company reserves the right to forthwith terminate your employment without any notice and without any obligation or liability to pay any remuneration or other dues to you irrespective of the period that you may have been employed by the Company.</li>
+
+                <li>Any change in your personal information including residential address, marital status and educational qualification should be notified to the Company in writing within seven (7) days from the date of such change. Any notice required to be given to you shall be deemed to have been duly and properly given, if delivered to you personally or sent by post or mail to you at your address as recorded in the Company's records.</li>
+
+                <li>Any books, documents, circulars, files, items of equipment of the Company which might be supplied to you in connection with your work shall at all times remain the property of the Company and shall be returned by you to the Company upon your ceasing to be in the Company's employment. If you fail to do so, the Company may withhold payment of your dues, if any, and/or take such steps as may be called for to recover them from you. You will be responsible for all such items or property and shall immediately report loss of property, if any, in your possession to the Company for taking necessary action in this regard. Failure to do so will automatically entitle the company to recover any loss amount from you.</li>
+
+                <li><strong>Probation:</strong> You shall be on probation for a period of <span class="term-highlight">three months</span> initially. The period of probation may be further extended on the sole discretion of the Company. Your confirmation will be subject to your conduct and work being satisfactory during this period.</li>
+
+                <li><strong>Leave:</strong> You will be entitled for leave as per the category and level of your employment as defined in the leave policy.</li>
+
+                <li><strong>Transfer of Services:</strong> The Company may, at its sole discretion, transfer you to any other office of the Company in India or overseas or to any of its affiliates as long as the benefit of your employment accrues to the Company. In such a situation, you shall also be bound by any policy of such other office or affiliate, in existence at the date of this Agreement or that may be subsequently framed by the Company or the affiliate. You will also be expected to make visits and travel both within India and overseas, as may be necessary for the proper discharge of your duties.</li>
+
+                <li><strong>Group Medical:</strong> Group medical insurance scheme covers you and your family (Spouse & 02 Children). Maximum members allowed for coverage is 4.</li>
+
+                <li><strong>Confidentiality:</strong> You shall not at any time or times without the consent of the Institute either during the term of employment or thereafter disclose, divulge or make public, expect under legal obligations any of the processes, scientific investigations or results thereof, problems, practices, arts, formulas, records, suggestions, discussions, accounts, transactions of dealings of the Institute which ought not to be disclosed, divulged or made public whether the same be confided or become known to you in the course of your services or otherwise nor shall you remove from the premises of the Institute any notes, drawing or other documents relating to such knowledge or information. Further it may be noted that your compensation is confidential and not to be disclosed to anyone and any such disclosure will be viewed seriously. In case you need any clarification about your compensation, you should get in touch with the Human Resources Department.</li>
+
+                <li><strong>Notice Period:</strong> Your employment with the company shall be governed by Company's rules and regulations applicable from time to time. If the Company is not satisfied with your performance on any account, the Company reserves the right to terminate your employment with a notice of 7 days or 7 days gross salary in lieu thereof. This in no way limits the Company's right to terminate your employment without notice in the event of behavioral, and disciplinary actions.<br><br>
+                You will be required to give <span class="term-highlight">30 days</span> of notice if you wish to resign from the employment of the company after getting confirmed. If sufficient notice is not given, the Employer will not give a reference or certificate of endorsement and the Employee will forfeit any unpaid benefits and be charged 3 months' salary to compensate for damages caused by immediate departure.<br><br>
+                You will be required to give <span class="term-highlight">15 days</span> of notice if you wish to resign from the employment of the company during your Probation Period. If sufficient notice is not given, the Employer will not give a reference or certificate of endorsement and the Employee will forfeit any unpaid benefits and be charged 3 month's salary to compensate for damages caused by immediate departure.<br><br>
+                In case of voluntary separation, the company reserves the right to ask employee to either serve the notice period or pay the salary in lieu of notice or decide on the last working day of resigned employee</li>
+
+                <li><strong>Termination:</strong> The company keeps the rights to decide in case of termination if it is in the favor of 30 days of notice period or 30 days of salary in lieu of notice period.</li>
+
+                <li>You agree that during and upon termination of your employment, you shall not in any manner either directly or indirectly solicit or entice the other employees or customers of the Company to join or enter into transactions, as the case may be with either you directly or indirectly or with other entities which are in direct or indirect competition with the Company.</li>
+
+                <li>Notwithstanding anything mentioned in this Agreement, the Company may terminate your employment, with immediate effect by a notice in writing (without salary in lieu of notice), in the event of your misconduct, including but not limited to, fraudulent, dishonest or undisciplined conduct of, or breach of integrity, or embezzlement, or misappropriation or misuse by you of the Company's property, or insubordination or failure to comply with the directions given to you by persons so authorized, or your insolvency or conviction for any offense involving moral turpitude, or breach by you of any terms of this Agreement or the Company Policy or other documents or directions of the Company, or irregularity in attendance, or your unauthorized absence from the place of work for more than five (5) working days, or upon you conducting yourself in a manner which is regarded by the Company as prejudicial to its own interests or to the interests of its clients.</li>
+
+                <li>Notwithstanding anything aforesaid, termination by you shall be subject to the satisfactory completion of all your existing duties, obligations and projects etc.</li>
+
+                <li>At the time of termination of your employment, if there are any dues from you, the same may be adjusted against any money due to you from the Company on account of salary, bonus or any other such payments.</li>
+
+                <li>You acknowledge and agree that any work that you may be conducting either on the premises of the Company or otherwise with regard to patents, improvements, discoveries or any other form of intellectual property, whether protected under law or not, is being done on behalf of the Company. In this regard, you agree to execute an Employee Invention Assignment Agreement annexed to this Employment Agreement.</li>
+
+                <li>You shall execute a Non-Disclosure Agreement annexed to this Employment Agreement under which you will have an obligation to keep confidential the Company's proprietary information.</li>
+
+                <li>You agree that the interpretation and enforcement of this Agreement shall be governed by the laws of India and all disputes under this Agreement shall be governed by the provisions of the Indian Arbitration and Conciliation Act, 1996. The venue for arbitration will be Pune.</li>
+
+                <li>This employment is directed towards developing a career at the Company. However, employment at the Company will always entail the conditions of satisfactory performance and satisfactory market conditions for the Company's products and services (as it may determine at its sole discretion).</li>
+            </ul>
+
+            <p>This is to certify that I have read this agreement and all Annexure and understood all the terms and conditions mentioned therein and I hereby accept and agree to abide by them.</p>
+
+            <h2 class="section-heading">Employee Proprietary Information, Inventions, Non-Competition and Non-Solicitation Agreement</h2>
+
+            <div class="nda-section">
+                <p>In consideration of my employment or continued employment by {{ config.COMPANY_NAME }} (the "Company") and the compensation now and hereafter paid to me, I hereby enter into this Proprietary Information, Inventions, Non-Competition and Non-Solicitation Agreement (the "Agreement") and agree as follows:</p>
+
+                <h3 style="color: #6B46C1; margin-top: 20px;">1. NON-DISCLOSURE</h3>
+                
+                <p><strong>1.1 Recognition of Company's Rights; Nondisclosure.</strong> At all times during my employment and thereafter, I will hold in strictest confidence and will not disclose, use, or publish any of the Company's Proprietary Information (defined below), except as such disclosure use or publication may be required in connection with my work for the Company, or unless an officer of the Company expressly authorizes such in writing. I will obtain Company's written approval before publishing or submitting for publication any material (written, verbal, or otherwise) that relates to my work at the Company and/or incorporates any Proprietary Information. I hereby assign to the Company any rights I may have or acquire in such Proprietary Information and recognize that all Proprietary Information shall be the sole property of the Company and its assigns.</p>
+
+                <p><strong>1.2 Proprietary Information.</strong> The term "Proprietary Information" shall mean any and all confidential and/or proprietary knowledge, data or information of the Company, its affiliates, parents and subsidiaries. By way of illustration but not limitation, "Proprietary Information" includes (a) trade secrets, inventions, mask works, ideas, processes, formulas, source and object codes, data, programs, other works of authorship, know-how, improvements, discoveries, developments, designs and techniques; (b) information regarding research, development, new products, marketing and selling, business plans, budgets and unpublished financial statements, licenses, prices and costs, pricing and billing policies, quoting procedures, methods of obtaining business, forecasts, future plans and potential strategies, financial projections and business strategies, operational plans, financing and capital-raising plans, activities and agreements, internal services and operational manuals, methods of conducting Company business, suppliers and supplier information, and purchasing; (c) information regarding Customers or Potential Customers, including names and their representatives, their needs or desires with respect to the types of products or services offered by the Company, proposals, bids, contracts and their contents and parties, the type and quantity of products and services provided or sought to be provided to Customers or Potential Customers, and other non-public information relating to Customers or Potential Customers; (d) information regarding any of the Company's business partners and their services, including their names and their representatives, proposals, bids, contracts and their contents and parties, the type and quantity of products and services received by the Company, and other non-public information relating to business partners; (e) information regarding personnel, employee lists, compensation, and employee skills; and (f) any non public information which a competitor of the Company could use to the competitive disadvantage of the Company.</p>
+
+                <h3 style="color: #6B46C1; margin-top: 20px;">2. ASSIGNMENT OF INVENTIONS</h3>
+                
+                <p><strong>2.1 Proprietary Rights.</strong> The term "Proprietary Rights" shall mean all trade secret, patent, copyright, mask work and other intellectual property rights throughout the world.</p>
+
+                <p><strong>2.2 Assignment of Inventions.</strong> I hereby assign and agree to assign in the future (when any such Inventions or Proprietary Rights are first reduced to practice or first fixed in a tangible medium, as applicable) to the Company all my right, title and interest in and to any and all Inventions (and all Proprietary Rights with respect thereto) whether or not patentable or registrable under copyright or similar statutes, made or conceived or reduced to practice or learned by me, either alone or jointly with others, during the period of my employment with the Company.</p>
+
+                <h3 style="color: #6B46C1; margin-top: 20px;">3. NO DUAL EMPLOYMENT</h3>
+                
+                <p>I understand that my employment with the Company requires my full attention and effort. I agree that during the period of my employment by the Company I will not, without the Company's express written consent, engage in any employment or business activity other than for the Company, including but not limited to employment or business activity which is competitive with, or would otherwise conflict with, my employment by the Company.</p>
+
+                <h3 style="color: #6B46C1; margin-top: 20px;">4. NO SOLICITATION OF EMPLOYEES, CONSULTANTS, CONTRACTORS, OR CUSTOMERS</h3>
+                
+                <p>I agree that for the <span class="term-highlight">one (1) year</span> period after the date my employment ends for any reason, including but not limited to voluntary termination by me or involuntary termination by the Company, I will not, as an officer, director, employee, consultant, owner, partner, or in any other capacity, either directly or through others:</p>
+                
+                <ul style="margin-left: 20px;">
+                    <li>solicit or attempt to solicit any employee of the Company to end his or her relationship with the Company or to work in any capacity for any person or entity other than the Company;</li>
+                    <li>attempt to hire, employ, or associate in business with any person employed by the Company or who has left the employment of the Company within the preceding three (3) months;</li>
+                    <li>solicit, induce or attempt to induce any Customer or Potential Customer or any consultant or contractor of the Company with whom I had direct or indirect contact to terminate, diminish, or materially alter its relationship with the Company;</li>
+                    <li>solicit, perform or attempt to perform any Conflicting Services for a Customer or Potential Customer or for any consultant or contractor of the Company with whom I had direct or indirect contact.</li>
+                </ul>
+
+                <h3 style="color: #6B46C1; margin-top: 20px;">5. NON-COMPETE PROVISION</h3>
+                
+                <p>I agree that for the <span class="term-highlight">one (1) year</span> period after the date my employment ends for any reason, including but not limited to voluntary termination by me or involuntary termination by the Company, I will not, directly or indirectly, as an officer, director, employee, consultant, owner, partner, or in any other capacity solicit, provide, or attempt to provide Conflicting Services anywhere in the United States, nor will I assist another person to solicit, attempt to provide, or provide Conflicting Services anywhere in the United States.</p>
+
+                <div class="penalty-clause">
+                    <p><strong>PENALTY CLAUSE:</strong> In case of a breach of an agreement state that the defaulter will be terminated with an immediate effect.</p>
+                </div>
+            </div>
+
+            <p>This Agreement shall be effective as of the first day of my employment with the Company, namely: <strong>{{ date_of_joining.strftime('%d %B %Y') if date_of_joining else "Date of Joining" }}</strong></p>
+
+            <p style="text-transform: uppercase; font-weight: bold; margin-top: 30px;">I have read this agreement carefully and understand its terms. I have completely filled out the exhibit a to this agreement.</p>
+        </div>
+
+        <!-- Acknowledgment Section -->
+        <div class="acknowledgment">
+            <p><strong>EMPLOYEE ACKNOWLEDGMENT</strong></p>
+            <p>I certify that I have read this agreement and all annexures and understood all the terms and conditions mentioned therein. I hereby accept and agree to abide by them.</p>
+        </div>
+
+        <!-- Signature Section -->
+        <div class="signature-section">
+            <p class="signature-header">Accepted and Agreed To</p>
+
+            <table class="signature-table">
+                <tr>
+                    <td class="signature-cell">
+                        <div>Dated: _______________</div>
+                        <div class="signature-line"></div>
+                        <div class="signature-name">({{ employee_name }})</div>
+                        <div class="signature-title">Employee Signature</div>
+                    </td>
+                    <td class="signature-cell">
+                        <div style="margin-bottom: 10px;">{{ config.COMPANY_NAME }}</div>
+                        <div class="signature-line"></div>
+                        <div class="signature-name">{{ config.HR_MANAGER_NAME }}</div>
+                        <div class="signature-title">{{ config.HR_MANAGER_DESIGNATION }}</div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Footer Note -->
+        <div class="footer-note">
+            <p>This is a computer-generated document and does not require a physical signature for validity.<br>
+            Please sign and return a copy to the HR Department to confirm your acceptance.</p>
+        </div>
+    </div>
+</body>
+</html>

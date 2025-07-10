@@ -1,0 +1,72 @@
+{% extends "base_template.html" %}
+
+{% block content %}
+<h2 style="color: #0066CC; margin-bottom: 20px;">Welcome On Board!</h2>
+
+<p>Dear {{ full_name }},</p>
+
+<p>Greetings of the day !!</p>
+
+<p>We are happy to have you join our organization. We believe that you will be a great asset to our company.</p>
+
+<p>Again, <strong>Congratulations</strong>. We are thrilled to have you join the team and look forward to working with you.</p>
+
+<div style="background-color: #e8f4f8; padding: 20px; border-radius: 5px; margin: 20px 0; border-left: 4px solid #0066CC;">
+    <h3 style="color: #0066CC; margin-top: 0;">Next Steps:</h3>
+    <p>As a part of the process, please complete the joining form by clicking the link below:</p>
+    <p style="text-align: center; margin: 20px 0;">
+        <a href="{{ joining_form_link }}" style="display: inline-block; padding: 12px 30px; background-color: #0066CC; color: #ffffff; text-decoration: none; border-radius: 5px; font-weight: bold;">
+            Complete Joining Form
+        </a>
+    </p>
+</div>
+
+<h3 style="color: #333333; margin-top: 30px;">Your First Day Information:</h3>
+<table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
+    <tr>
+        <td style="padding: 10px; border-bottom: 1px solid #e0e0e0;"><strong>Date of Joining:</strong></td>
+        <td style="padding: 10px; border-bottom: 1px solid #e0e0e0;">{{ date_of_joining }}</td>
+    </tr>
+    <tr>
+        <td style="padding: 10px; border-bottom: 1px solid #e0e0e0;"><strong>Designation:</strong></td>
+        <td style="padding: 10px; border-bottom: 1px solid #e0e0e0;">{{ designation }}</td>
+    </tr>
+    <tr>
+        <td style="padding: 10px; border-bottom: 1px solid #e0e0e0;"><strong>Department:</strong></td>
+        <td style="padding: 10px; border-bottom: 1px solid #e0e0e0;">{{ department }}</td>
+    </tr>
+    <tr>
+        <td style="padding: 10px; border-bottom: 1px solid #e0e0e0;"><strong>Reporting Manager:</strong></td>
+        <td style="padding: 10px; border-bottom: 1px solid #e0e0e0;">{{ reporting_manager }}</td>
+    </tr>
+    <tr>
+        <td style="padding: 10px;"><strong>Work Mode:</strong></td>
+        <td style="padding: 10px;">Remote</td>
+    </tr>
+</table>
+
+<h3 style="color: #333333; margin-top: 30px;">System Access:</h3>
+<p>You will receive separate emails with login credentials for the following systems:</p>
+<ul style="margin: 10px 0 20px 20px;">
+    {% for system in systems_access %}
+    <li style="margin-bottom: 5px;">{{ system }}</li>
+    {% endfor %}
+</ul>
+
+<div style="background-color: #fff3cd; padding: 15px; border-radius: 5px; margin: 20px 0; border-left: 4px solid #ffc107;">
+    <p style="margin: 0;"><strong>Important Reminders:</strong></p>
+    <ul style="margin: 10px 0 0 20px;">
+        <li>Please ensure you have a stable internet connection</li>
+        <li>Keep your workspace ready for remote work</li>
+        <li>Your manager will reach out to you for the first day orientation</li>
+    </ul>
+</div>
+
+<p>Please let me know if you have any questions.</p>
+
+<p style="margin-top: 30px;">
+    Regards,<br>
+    <strong>Team HR</strong><br>
+    Rapid Innovation
+</p>
+{% endblock %}

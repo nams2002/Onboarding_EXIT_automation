@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Internship Letter - {{ intern_name }}</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', serif;
+            font-size: 12pt;
+            line-height: 1.6;
+            margin: 0;
+            padding: 40px;
+            color: #000;
+            background-color: #fff;
+        }
+
+        .letterhead {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #0066CC;
+            padding-bottom: 20px;
+        }
+
+        .company-name {
+            font-size: 24pt;
+            font-weight: bold;
+            color: #0066CC;
+            margin-bottom: 5px;
+        }
+
+        .company-address {
+            font-size: 10pt;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 30px;
+        }
+
+        .recipient-info {
+            flex: 1;
+        }
+
+        .date-info {
+            text-align: right;
+            flex: 0 0 auto;
+        }
+
+        .recipient-name {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .subject {
+            font-weight: bold;
+            text-decoration: underline;
+            margin: 20px 0;
+        }
+
+        .salutation {
+            margin-bottom: 20px;
+        }
+
+        .letter-body {
+            text-align: justify;
+            margin-bottom: 30px;
+        }
+
+        .letter-body p {
+            margin-bottom: 15px;
+        }
+
+        .highlight {
+            font-weight: bold;
+        }
+
+        .closing {
+            margin-top: 30px;
+        }
+
+        .signature-section {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 60px;
+            padding-top: 20px;
+        }
+
+        .signature-left, .signature-right {
+            text-align: center;
+            flex: 0 0 45%;
+        }
+
+        .signature-line {
+            border-top: 1px solid #000;
+            margin-top: 40px;
+            padding-top: 5px;
+            font-size: 10pt;
+        }
+
+        .signature-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .signature-title {
+            font-size: 10pt;
+            color: #666;
+        }
+
+        @media print {
+            body {
+                padding: 20px;
+            }
+
+            .signature-section {
+                page-break-inside: avoid;
+            }
+        }
+
+        .terms-highlight {
+            background-color: #f0f8ff;
+            padding: 10px;
+            border-left: 4px solid #0066CC;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="letterhead">
+        <div class="company-name">{{ config.COMPANY_NAME or "Rapid Innovation Pvt. Ltd." }}</div>
+        <div class="company-address">
+            {{ config.COMPANY_ADDRESS or "Hotel North 39, Junas Wada, near River Bridge, Mandrem, Goa 403524" }}<br>
+            Email: {{ config.DEFAULT_SENDER_EMAIL or "teamhr@rapidinnovation.com" }} |
+            Website: {{ config.COMPANY_WEBSITE or "www.rapidinnovation.com" }}
+        </div>
+    </div>
+
+    <div class="header-row">
+        <div class="recipient-info">
+            <div class="recipient-name">{{ salutation }} {{ intern_name }}</div>
+            <div>{{ intern_address or "Full address" }}</div>
+        </div>
+        <div class="date-info">
+            <strong>Date of issue:</strong> {{ issue_date or date.today().strftime('%B %d, %Y') }}
+        </div>
+    </div>
+
+    <div class="subject">
+        <strong>Sub:</strong> Internship Letter
+    </div>
+
+    <div class="salutation">
+        Dear {{ intern_name }},
+    </div>
+
+    <div class="letter-body">
+        <p>
+            With reference to your application and subsequent discussion/interview, we are pleased to offer you the position of
+            <span class="highlight">"{{ designation }}"</span>. You are expected to join on
+            <span class="highlight">{{ date_of_joining.strftime('%B %d, %Y') }}</span> i.e., on
+            <span class="highlight">{{ date_of_joining.strftime('%A') }}</span>.
+        </p>
+
+        <div class="terms-highlight">
+            <p>
+                It will be <span class="highlight">{{ internship_duration or "3" }} months</span> of Internship starting from your date of joining,
+                and the stipend will be <span class="highlight">Rs. {{ stipend }}/- per month</span>. We will assess your performance for the
+                initial <span class="highlight">15 days</span>, and if we determine your performance is unsatisfactory, we may terminate your
+                employment with us.
+            </p>
+        </div>
+
+        <p>
+            After the internship tenure, we will judge your performance and accordingly will provide feedback & further confirmation
+            for a full-time job.
+        </p>
+
+        <p>
+            We are confident that you will be able to make a significant contribution to the success of our Company.
+        </p>
+
+        <p>
+            Please ensure that you have a stable network connection and uninterrupted power supply at your place. Also, note that
+            you will be using your laptop for the duration of the internship.
+        </p>
+
+        <p>
+            Please sign and share the scanned copy of this letter and return it to the HR Department to indicate your acceptance
+            of this offer.
+        </p>
+    </div>
+
+    <div class="closing">
+        <p>Sincerely,</p>
+    </div>
+
+    <div class="signature-section">
+        <div class="signature-left">
+            <div class="signature-line">
+                <div class="signature-name">{{ hr_manager_name or "Aarushi Sharma" }}</div>
+                <div class="signature-title">{{ hr_manager_title or "Assistant Manager HR" }}</div>
+            </div>
+        </div>
+
+        <div class="signature-right">
+            <div class="signature-line">
+                <div class="signature-name">{{ intern_name }}</div>
+                <div class="signature-title">Intern Name</div>
+                <div style="margin-top: 10px; font-size: 9pt; color: #666;">
+                    (Accepted By)
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer for print -->
+    <div style="position: fixed; bottom: 20px; left: 0; right: 0; text-align: center; font-size: 8pt; color: #999;">
+        This is a computer-generated letter and does not require a physical signature for validity.
+    </div>
+</body>
+</html>

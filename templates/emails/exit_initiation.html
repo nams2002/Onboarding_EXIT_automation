@@ -1,0 +1,72 @@
+{% extends "base_template.html" %}
+
+{% block content %}
+<h2 style="color: #0066CC; margin-bottom: 20px;">Exit Formalities - {{ full_name }}</h2>
+
+<p>Hi {{ full_name }},</p>
+
+<p>This is to confirm that your last working day at Rapid Innovation is <strong>{{ last_working_day }}</strong>.</p>
+
+<p>You are requested to please look into the following points:</p>
+
+<ol style="margin: 20px 0; padding-left: 20px;">
+    <li style="margin-bottom: 10px;">Please change all the communication addresses, if any are provided as the company's address.</li>
+    
+    {% if employee_type == 'intern' %}
+    <li style="margin-bottom: 10px;">Your invoices will be considered as payslips.</li>
+    {% else %}
+    <li style="margin-bottom: 10px;">All your payslips are available on Razorpay; we expect you to download them and take them with you.</li>
+    {% endif %}
+    
+    {% if employee_type == 'full_time' %}
+    <li style="margin-bottom: 10px;">Please ensure to submit all company belongings to the people concerned on the last working day, like a laptop, bag, mouse, headphones, and dongle (if any).</li>
+    <li style="margin-bottom: 10px;">If you wish to withdraw your PF amount, you can do that on the online PF portal. (People having less than 6 months of experience with us will not be eligible to withdraw the PF amount)</li>
+    {% endif %}
+    
+    <li style="margin-bottom: 10px;">Please refer to the following Link to the exit feedback form and submit your valuable feedback on or before your last working day.</li>
+    <li style="margin-bottom: 10px;">Also, refer to the {% if employee_type == 'intern' %}Internship{% else %}Appointment{% endif %} Letter signed by you at the time of Joining Rapid Innovation so that you can adhere to all the clauses mentioned in it.</li>
+    <li style="margin-bottom: 10px;">Kindly move all the files to a folder in the drive and provide ownership to {{ reporting_manager }}'s mail ID</li>
+</ol>
+
+<div style="background-color: #e8f4f8; padding: 20px; border-radius: 5px; margin: 20px 0; border-left: 4px solid #0066CC;">
+    <h3 style="color: #0066CC; margin-top: 0;">Exit Feedback Form</h3>
+    <p>Your feedback is valuable to us. Please complete the exit feedback form:</p>
+    <p style="text-align: center; margin: 20px 0;">
+        <a href="{{ feedback_form_link }}" style="display: inline-block; padding: 12px 30px; background-color: #0066CC; color: #ffffff; text-decoration: none; border-radius: 5px; font-weight: bold;">
+            Complete Exit Feedback
+        </a>
+    </p>
+</div>
+
+<div style="background-color: #f8f9fa; padding: 20px; border-radius: 5px; margin: 20px 0;">
+    <h3 style="color: #333333; margin-top: 0;">Important Timelines:</h3>
+    <table style="width: 100%; border-collapse: collapse;">
+        <tr>
+            <td style="padding: 10px; border-bottom: 1px solid #e0e0e0;"><strong>Resignation Date:</strong></td>
+            <td style="padding: 10px; border-bottom: 1px solid #e0e0e0;">{{ resignation_date }}</td>
+        </tr>
+        <tr>
+            <td style="padding: 10px; border-bottom: 1px solid #e0e0e0;"><strong>Last Working Day:</strong></td>
+            <td style="padding: 10px; border-bottom: 1px solid #e0e0e0;">{{ last_working_day }}</td>
+        </tr>
+        <tr>
+            <td style="padding: 10px;"><strong>Full & Final Settlement:</strong></td>
+            <td style="padding: 10px;">Within 30-45 days from LWD</td>
+        </tr>
+    </table>
+</div>
+
+{% if short_notice %}
+<div style="background-color: #fff3cd; padding: 15px; border-radius: 5px; margin: 20px 0; border-left: 4px solid #ffc107;">
+    <p style="margin: 0;"><strong>Note:</strong> As per company policy, the required notice period is {{ required_notice }} days. Since you have served a shorter notice period, appropriate recovery may be applicable as per your appointment letter.</p>
+</div>
+{% endif %}
+
+<p>Your full and final settlement will be processed within 30-45 days from your last working day. HR will be sending the FNF statement to your email ID.</p>
+
+<p style="margin-top: 30px;">
+    Regards,<br>
+    <strong>Team HR</strong><br>
+    Rapid Innovation
+</p>
+{% endblock %}

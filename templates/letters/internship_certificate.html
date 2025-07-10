@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Internship Certificate - {{ employee_name }}</title>
+    <style>
+        @page { margin: 2cm; }
+        body { 
+            font-family: 'Georgia', serif; 
+            line-height: 1.8; 
+            color: #333333;
+            margin: 0;
+        }
+        .certificate-container { 
+            max-width: 800px; 
+            margin: 0 auto; 
+            padding: 40px 20px; 
+            min-height: 100vh;
+            border: 3px double #0066CC;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%);
+            position: relative;
+        }
+        .certificate-border {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            border: 1px solid #0066CC;
+            border-radius: 8px;
+            pointer-events: none;
+        }
+        .header { text-align: center; margin-bottom: 40px; }
+        .logo { max-width: 200px; height: auto; }
+        .title { 
+            color: #0066CC; 
+            font-size: 32px; 
+            margin: 30px 0; 
+            text-align: center; 
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-weight: bold;
+        }
+        .subtitle {
+            text-align: center;
+            font-size: 18px;
+            color: #666666;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+        .date { text-align: right; margin-bottom: 30px; font-size: 14px; }
+        .to-whom { 
+            font-weight: bold; 
+            font-size: 16px; 
+            margin: 30px 0; 
+            text-align: center;
+        }
+        .content { 
+            text-align: justify; 
+            font-size: 16px;
+            padding: 0 20px;
+        }
+        .content p { margin-bottom: 20px; line-height: 1.8; }
+        .signature-section { 
+            margin-top: 80px; 
+            text-align: center;
+        }
+        .seal {
+            position: absolute;
+            bottom: 100px;
+            right: 100px;
+            width: 150px;
+            height: 150px;
+            border: 3px solid #0066CC;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #0066CC;
+            opacity: 0.3;
+        }
+    </style>
+</head>
+<body>
+    <div class="certificate-container">
+        <div class="certificate-border"></div>
+        
+        <!-- Header with Logo -->
+        <div class="header">
+            {% if logo_path %}
+            <img src="{{ logo_path }}" alt="Rapid Innovation" class="logo">
+            {% else %}
+            <h1 style="color: #0066CC; margin: 0;">RAPID INNOVATION</h1>
+            {% endif %}
+        </div>
+        
+        <!-- Title -->
+        <h1 class="title">INTERNSHIP CERTIFICATE</h1>
+        <p class="subtitle">This is to certify that</p>
+        
+        <!-- Date -->
+        <div class="date">
+            <p>Date: {{ issue_date }}</p>
+        </div>
+        
+        <!-- To Whom It May Concern -->
+        <p class="to-whom">To Whom It May Concern</p>
+        
+        <!-- Content -->
+        <div class="content">
+            <p>This letter is to certify that <strong>Mr/Ms. {{ employee_name }}</strong> has completed {{ gender_pronoun }} internship with <strong>{{ company_name }}</strong>.</p>
+            
+            <p>{{ gender_subject_cap }} internship tenure was from <strong>{{ joining_date }}</strong> to <strong>{{ leaving_date }}</strong>. {{ gender_subject_cap }} was working with us as an <strong>{{ designation }}</strong> and was actively & diligently involved in the projects and tasks assigned to {{ gender_pronoun }}.</p>
+            
+            <p>During this time, we found {{ gender_pronoun }} to be punctual and hardworking.</p>
+            
+            <p>We wish {{ gender_pronoun }} a bright future.</p>
+        </div>
+        
+        <!-- Signature Section -->
+        <div class="signature-section">
+            <p>Sincerely,</p>
+            <br><br><br>
+            <p>
+                <strong>{{ hr_manager_name }}</strong><br>
+                {{ hr_manager_designation }}
+            </p>
+        </div>
+        
+        <!-- Seal -->
+        <div class="seal">
+            <div style="text-align: center;">
+                RAPID<br>INNOVATION<br>CERTIFIED
+            </div>
+        </div>
+    </div>
+</body>
+</html>

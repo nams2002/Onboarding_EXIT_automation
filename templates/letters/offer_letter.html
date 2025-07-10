@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offer Letter - {{ employee_name }}</title>
+    <style>
+        @page { margin: 2cm; }
+        body { 
+            font-family: Arial, sans-serif; 
+            line-height: 1.6; 
+            color: #333333;
+            margin: 0;
+        }
+        .letter-container { max-width: 800px; margin: 0 auto; padding: 20px; }
+        .header { text-align: center; margin-bottom: 30px; }
+        .logo { max-width: 200px; height: auto; }
+        .title { color: #0066CC; font-size: 24px; margin: 20px 0; }
+        .date-ref { text-align: right; margin-bottom: 20px; }
+        .recipient { margin-bottom: 30px; }
+        .subject { font-weight: bold; margin: 20px 0; }
+        .content { text-align: justify; }
+        .content p { margin-bottom: 15px; }
+        .table-compensation { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        .table-compensation th, .table-compensation td { 
+            border: 1px solid #ddd; 
+            padding: 10px; 
+            text-align: left; 
+        }
+        .table-compensation th { background-color: #f0f0f0; font-weight: bold; }
+        .table-compensation .total { background-color: #e8f4f8; font-weight: bold; }
+        .signature-section { margin-top: 50px; }
+        .signature-table { width: 100%; margin-top: 40px; }
+        .signature-table td { width: 50%; vertical-align: top; }
+    </style>
+</head>
+<body>
+    <div class="letter-container">
+        <!-- Header with Logo -->
+        <div class="header">
+            {% if logo_path %}
+            <img src="{{ logo_path }}" alt="Rapid Innovation" class="logo">
+            {% else %}
+            <h1 style="color: #0066CC; margin: 0;">RAPID INNOVATION</h1>
+            {% endif %}
+        </div>
+        
+        <!-- Title -->
+        <h1 class="title" style="text-align: center;">
+            {% if employee_type == 'full_time' %}
+                OFFER LETTER
+            {% elif employee_type == 'intern' %}
+                INTERNSHIP LETTER
+            {% else %}
+                CONTRACT AGREEMENT
+            {% endif %}
+        </h1>
+        
+        <!-- Date and Reference -->
+        <div class="date-ref">
+            <p>Date: {{ issue_date }}<br>
+            Ref: RI/HR/{{ employee_id }}/2024</p>
+        </div>
+        
+        <!-- Recipient Details -->
+        <div class="recipient">
+            <p><strong>{{ employee_name }}</strong><br>
+            {{ employee_address }}</p>
+        </div>
+        
+        <!-- Subject -->
+        <p class="subject">
+            {% if employee_type == 'full_time' %}
+                Sub: Offer Letter - {{ designation }}
+            {% elif employee_type == 'intern' %}
+                Sub: Internship Letter - {{ designation }} Intern
+            {% else %}
+                Sub: Contract Agreement - {{ designation }}
+            {% endif %}
+        </p>
+        
+        <!-- Salutation -->
+        <p>Dear {{ first_name }},</p>
+        
+        <!-- Content based on employee type -->
+        <div class="content">
+            {% if employee_type == 'full_time' %}
+                <p>With reference to your application and subsequent discussion/interview, we are pleased to offer you the position of <strong>{{ designation }}</strong>. You are expected to join on <strong>{{ date_of_joining }}</strong> on or before.</p>
+                
+                <p>Your CTC (Cost-to-Company) will be <strong>{{ ctc }} ({{ ctc_words }})</strong> per annum.</p>
+                
+                <!-- CTC Breakdown Table -->
+                <h3>Compensation Structure:</h3>
+                <table class="table-compensation">
+                    <thead>
+                        <tr>
+                            <th>Component</th>
+                            <th>Monthly (₹)</th>
+                            <th>Annual (₹)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Basic Salary</td>
+                            <td>{{ monthly_basic }}</td>
+                            <td>{{ basic_salary }}</td>
+                        </tr>
+                        <tr>
+                            <td>HRA</td>
+                            <td>{{ monthly_hra }}</td>
+                            <td>{{ hra }}</td>
+                        </tr>
+                        <tr>
+                            <td>Special Allowance</td>
+                            <td>{{ monthly_special }}</td>
+                            <td>{{ special_allowance }}</td>
+                        </tr>
+                        <tr>
+                            <td>Medical Allowance</td>
+                            <td>1,250</td>
+                            <td>{{ medical_allowance }}</td>
+                        </tr>
+                        <tr>
+                            <td>Books & Periodicals</td>
+                            <td>1,000</td>
+                            <td>{{ books_periodical }}</td>
+                        </tr>
+                        <tr>
+                            <td>Health Club Facility</td>
+                            <td>500</td>
+                            <td>{{ health_club }}</td>
+                        </tr>
+                        <tr>
+                            <td>Internet & Telephone</td>
+                            <td>2,000</td>
+                            <td>{{ internet_telephone }}</td>
+                        </tr>
+                        <tr class="total">
+                            <td>Gross CTC</td>
+                            <td>{{ monthly_gross }}</td>
+                            <td>{{ gross_ctc }}</td>
+                        </tr>
+                        <tr>
+                            <td>PF Employer Contribution</td>
+                            <td>{{ monthly_pf }}</td>
+                            <td>{{ pf_employer }}</td>
+                        </tr>
+                        <tr class="total">
+                            <td><strong>Total CTC</strong></td>
+                            <td></td>
+                            <td><strong>{{ total_ctc }}</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <p>You will be on probation for a period of {{ probation_period }} months from the date of your joining. Your performance will be assessed for confirmation on various parameters as required at the time of assessment.</p>
+                
+            {% elif employee_type == 'intern' %}
+                <p>With reference to your application and subsequent discussion/interview, we are pleased to offer you the position of <strong>{{ designation }} Intern</strong>. You are expected to join on <strong>{{ date_of_joining }}</strong>.</p>
+                
+                <p>It will be <strong>{{ internship_duration }} of Internship</strong> starting from your date of joining, and the stipend will be <strong>{{ stipend }}</strong> per month.</p>
+                
+                <p>We will assess your performance for the initial 15 days, and if we determine your performance is unsatisfactory, we may terminate your employment with us.</p>
+                
+                <p>After the internship tenure, we will judge your performance and accordingly will provide feedback & further confirmation for a full-time job.</p>
+                
+            {% else %}
+                <p>This Contract Agreement is by and between {{ employee_name }} and RAPID INNOVATION and defines the scope of work and fees for services to be performed.</p>
+                
+                <p>You are required to join the Company on <strong>{{ date_of_joining }}</strong> and your employment shall start from this date. You will be treated as a contractor of the Company from the joining date.</p>
+                
+                <p>Regarding your compensation, you will be paid on Hourly basis <strong>{{ hourly_rate }}</strong>, which reflects our acknowledgment of your valuable contributions to the team.</p>
+                
+                <p>Note: The number of hours worked will be recorded on our company software, and payment will be done on a monthly basis as per your activity on software.</p>
+            {% endif %}
+            
+            <!-- Common content -->
+            <p>This position is designated as remote until further notified by the management. Please ensure that you have a stable network connection and uninterrupted power supply at your place.</p>
+            
+            {% if employee_type == 'intern' %}
+                <p>You will be using your laptop for the duration of the internship.</p>
+            {% endif %}
+            
+            <p>We are confident that you will be able to make a significant contribution to the success of our Company.</p>
+            
+            <p>Please sign and share the scanned copy of this letter and return it to the HR Department to indicate your acceptance of this offer.</p>
+        </div>
+        
+        <!-- Signature Section -->
+        <div class="signature-section">
+            <p>Sincerely,</p>
+            
+            <table class="signature-table">
+                <tr>
+                    <td>
+                        <p style="margin-top: 60px;">
+                            {{ hr_manager_name }}<br>
+                            {{ hr_manager_designation }}
+                        </p>
+                    </td>
+                    <td style="text-align: right;">
+                        <p style="margin-top: 60px;">
+                            Accepted By<br><br>
+                            _____________________<br>
+                            {{ employee_name }}<br>
+                            Date: _____________
+                        </p>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

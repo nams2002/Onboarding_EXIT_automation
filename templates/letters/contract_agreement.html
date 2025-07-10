@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contract Agreement - {{ employee_name }}</title>
+    <style>
+        @page { margin: 2cm; }
+        body { 
+            font-family: Arial, sans-serif; 
+            line-height: 1.6; 
+            color: #333333;
+            margin: 0;
+        }
+        .letter-container { max-width: 800px; margin: 0 auto; padding: 20px; }
+        .header { text-align: center; margin-bottom: 30px; }
+        .logo { max-width: 200px; height: auto; }
+        .title { 
+            color: #0066CC; 
+            font-size: 24px; 
+            margin: 20px 0; 
+            text-align: center;
+            text-transform: uppercase;
+        }
+        .parties { 
+            background-color: #f8f9fa; 
+            padding: 20px; 
+            margin: 20px 0;
+            border: 1px solid #dee2e6;
+        }
+        .section { margin: 30px 0; }
+        .section-title { 
+            color: #0066CC; 
+            font-size: 16px; 
+            font-weight: bold; 
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+        .content { text-align: justify; }
+        .content p { margin-bottom: 15px; }
+        .terms-list { margin: 20px 0; padding-left: 20px; }
+        .terms-list li { margin-bottom: 10px; }
+        .signature-section { margin-top: 50px; }
+        .signature-table { width: 100%; margin-top: 40px; }
+        .signature-table td { width: 50%; vertical-align: top; }
+        .highlight { background-color: #ffffcc; padding: 2px 5px; }
+    </style>
+</head>
+<body>
+    <div class="letter-container">
+        <!-- Header with Logo -->
+        <div class="header">
+            {% if logo_path %}
+            <img src="{{ logo_path }}" alt="Rapid Innovation" class="logo">
+            {% else %}
+            <h1 style="color: #0066CC; margin: 0;">RAPID INNOVATION</h1>
+            {% endif %}
+        </div>
+        
+        <!-- Title -->
+        <h1 class="title">CONTRACT AGREEMENT</h1>
+        
+        <!-- Parties Section -->
+        <div class="parties">
+            <p><strong>This Contract Agreement</strong> is by and between <strong>{{ employee_name }}</strong> (hereinafter referred to as "Contractor") and <strong>RAPID INNOVATION</strong> (hereinafter referred to as "Company") and defines the scope of work and fees for services to be performed.</p>
+            
+            <p>This document describes the specific project and the different and additional terms applicable solely to this document and shall not be applicable to any other SOW entered into between the parties. All services provided under this document are collectively referred to as "Services".</p>
+        </div>
+        
+        <!-- Content Sections -->
+        <div class="content">
+            <!-- Working Profile -->
+            <div class="section">
+                <h2 class="section-title">Working Profile</h2>
+                <p><strong>Employment Type:</strong> Contractor<br>
+                <strong>Designation:</strong> {{ designation }}<br>
+                <strong>Joining date:</strong> {{ joining_date }}</p>
+                
+                <p>You are required to join the Company on <span class="highlight">{{ joining_date }}</span> and your employment shall start from this date. You will be treated as a contractor of the Company from the joining date and shall be entitled to the benefits available to contractors from that date onwards. For the initial one month, we will be evaluating your performance, and if it is satisfactory, we will continue the contract. However, if your performance is not up to the expected standards, the contract may be terminated. The contract can be extended on mutual agreement of both parties.</p>
+            </div>
+            
+            <!-- Communication -->
+            <div class="section">
+                <h2 class="section-title">Communication</h2>
+                <p>RAPID INNOVATION will follow the standard delivery model for the implementation. Email is used for all communication throughout the project lifecycle. In general, email can serve as a mechanism for problem reporting by either party at any time during the course of a project.</p>
+                <p><strong>Googlemeet Calls</strong> - This is basically to share project related artifacts, milestones, tasks management, share updates, etc.</p>
+            </div>
+            
+            <!-- Duration, Location, Hours -->
+            <div class="section">
+                <h2 class="section-title">Duration of Engagement</h2>
+                <p>As mentioned above.</p>
+            </div>
+            
+            <div class="section">
+                <h2 class="section-title">Reporting</h2>
+                <p>RAPID INNOVATION will provide a project status report to the Client project owner/manager on a weekly basis. The contractor will be available for regularly scheduled meetings or as needed.</p>
+            </div>
+            
+            <div class="section">
+                <h2 class="section-title">Location of Work</h2>
+                <p>Resources will work from home permanently.</p>
+            </div>
+            
+            <div class="section">
+                <h2 class="section-title">Working Hours</h2>
+                <p>As part of your role, you are expected to dedicate approximately <span class="highlight">{{ working_hours }}</span> hours per day, from <span class="highlight">{{ work_timings }}</span> IST, as per work requirements. This schedule ensures alignment with project needs and facilitates effective collaboration with the team.</p>
+            </div>
+            
+            <div class="section">
+                <h2 class="section-title">Supervision</h2>
+                <p>The Contractor will work under the supervision of a Manager designated by the RAPID INNOVATION.</p>
+            </div>
+            
+            <!-- Pricing -->
+            <div class="section">
+                <h2 class="section-title">Pricing and Fee Schedule</h2>
+                <p>Regarding your compensation, you will be paid on Hourly basis <span class="highlight">Rs. {{ hourly_rate }}</span>, which reflects our acknowledgment of your valuable contributions to the team. This remuneration structure is designed to recognize your commitment and efforts in enhancing our projects and achieving our common goals.</p>
+                
+                <p><strong>Note:</strong> The number of hours worked will be recorded on our company software, and payment will be done on a monthly basis as per your activity on software.</p>
+            </div>
+            
+            <!-- Project Monitoring -->
+            <div class="section">
+                <h2 class="section-title">Project Monitoring and Control</h2>
+                <p>The project work will be executed on a time and materials basis. The contractor will work remotely from their location, managed and led by RAPID INNOVATION project manager who will be the single point of contact for all day to day coordination.</p>
+            </div>
+            
+            <!-- Leave Policy -->
+            <div class="section">
+                <h2 class="section-title">Leave Policy</h2>
+                <p>During your tenure as a Contractor with Rapid Innovation, you are not eligible for leaves. However, please note that for any leave taken, you will not be remunerated for that specific day.</p>
+            </div>
+            
+            <!-- Exit Policy -->
+            <div class="section">
+                <h2 class="section-title">Exit Policy</h2>
+                <p>If you or the company decide to terminate the contract, a <span class="highlight">one-week notice period</span> is required.</p>
+            </div>
+            
+            <!-- Confidentiality -->
+            <div class="section">
+                <h2 class="section-title">Confidentiality</h2>
+                <p>The nature of the work performed, and any information transmitted to contractor by RAPID INNOVATION or to RAPID INNOVATION by contractor shall be confidential, and neither party shall divulge or otherwise disclose such information to any person other than authorized employees or authorized subcontractors whose job performance requires such acts and who are subject to written confidentiality obligations no less restrictive than those contained in this SOW, without the prior written consent of the other party.</p>
+            </div>
+            
+            <!-- Limitation of Liability -->
+            <div class="section">
+                <h2 class="section-title">Limitation of Liability</h2>
+                <p>To the maximum extent permitted by applicable law, under no circumstances shall either party be liable to the other for any special, exemplary, incidental, consequential, or indirect damages, loss of good will or business profits, work stoppage, data loss, computer failure or malfunction, or exemplary or punitive damages of any kind or nature, even if that party has been advised of the possibility of such damages.</p>
+            </div>
+            
+            <!-- Tax Deduction -->
+            <div class="section">
+                <h2 class="section-title">Tax Deduction</h2>
+                <p>The company will be deducting tax @ <span class="highlight">10%</span> as per the requirements of section 194J of the Income Tax Act, 1961 before making any payment.</p>
+            </div>
+            
+            <!-- Non-Disclosure Agreement Section -->
+            <div class="section" style="page-break-before: always;">
+                <h2 class="section-title">Non-Disclosure Agreement</h2>
+                <p>This Non-Disclosure Agreement is effective as of <span class="highlight">{{ joining_date }}</span> by and between RAPID INNOVATION, for itself and any of its associated contractors.</p>
+                
+                <p>The Receiving Party shall use the Confidential Information only in connection with its business relationship with the Disclosing Party and shall make no other use whatsoever of the Confidential Information.</p>
+                
+                <ol class="terms-list">
+                    <li><strong>Definition.</strong> As used herein, the term Confidential Information shall mean any non-public information that the Disclosing Party designates as being confidential to the Receiving Party or which, under the circumstances surrounding disclosure ought to be treated as confidential by the Receiving Party.</li>
+                    
+                    <li><strong>Non-disclosure Obligations.</strong> Receiving Party will use the same degree of care with respect to non-disclosure of the Disclosing Party's confidential Information as the Receiving Party uses to protect its own confidential Information, but in no event less than a reasonable degree of care.</li>
+                    
+                    <li><strong>Term and Termination.</strong> The obligations herein relating to confidentiality and use of information and ideas shall continue in force for the period commencing on the date (if any) on which the parties enter into a written agreement in relation to their business relationship and ending three years after termination of such agreement.</li>
+                </ol>
+            </div>
+            
+            <!-- Applicable Law -->
+            <div class="section">
+                <h2 class="section-title">Applicable Law</h2>
+                <p>This SOW shall be governed by, enforced and construed in accordance with the laws of India.</p>
+            </div>
+        </div>
+        
+        <!-- Acceptance -->
+        <div style="background-color: #f8f9fa; padding: 20px; margin: 30px 0; border: 1px solid #dee2e6;">
+            <p><strong>This SOW is agreed and confirmed by both the undersigned parties:</strong></p>
+            <p>We are confident that you will be able to make a significant contribution to the success of our Company.</p>
+            <p>Please sign and share the scanned copy of this letter and return it to the HR Department to indicate your acceptance of this offer.</p>
+        </div>
+        
+        <!-- Signature Section -->
+        <div class="signature-section">
+            <p>Sincerely,</p>
+            
+            <table class="signature-table">
+                <tr>
+                    <td>
+                        <p style="margin-top: 60px;">
+                            <strong>{{ hr_manager_name }}</strong><br>
+                            {{ hr_manager_designation }}<br>
+                            Rapid Innovation<br><br>
+                            Date: _____________
+                        </p>
+                    </td>
+                    <td style="text-align: right;">
+                        <p style="margin-top: 60px;">
+                            <strong>Accepted By</strong><br><br>
+                            _____________________<br>
+                            {{ employee_name }}<br>
+                            Contractor<br><br>
+                            Date: _____________
+                        </p>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

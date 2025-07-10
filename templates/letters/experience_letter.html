@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Experience Certificate - {{ employee_name }}</title>
+    <style>
+        @page { margin: 2cm; }
+        body { 
+            font-family: Arial, sans-serif; 
+            line-height: 1.8; 
+            color: #333333;
+            margin: 0;
+        }
+        .letter-container { 
+            max-width: 800px; 
+            margin: 0 auto; 
+            padding: 40px 20px; 
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .header { text-align: center; margin-bottom: 40px; }
+        .logo { max-width: 200px; height: auto; }
+        .title { 
+            color: #0066CC; 
+            font-size: 28px; 
+            margin: 30px 0; 
+            text-align: center; 
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .date { text-align: right; margin-bottom: 30px; font-size: 14px; }
+        .to-whom { 
+            font-weight: bold; 
+            font-size: 16px; 
+            margin: 30px 0; 
+            text-align: center;
+            text-transform: uppercase;
+        }
+        .content { 
+            text-align: justify; 
+            font-size: 16px;
+            flex-grow: 1;
+        }
+        .content p { margin-bottom: 20px; line-height: 1.8; }
+        .signature-section { 
+            margin-top: 80px; 
+            text-align: left;
+        }
+        .watermark {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-45deg);
+            font-size: 120px;
+            color: rgba(0, 102, 204, 0.05);
+            font-weight: bold;
+            z-index: -1;
+        }
+    </style>
+</head>
+<body>
+    <div class="watermark">RAPID INNOVATION</div>
+    
+    <div class="letter-container">
+        <!-- Header with Logo -->
+        <div class="header">
+            {% if logo_path %}
+            <img src="{{ logo_path }}" alt="Rapid Innovation" class="logo">
+            {% else %}
+            <h1 style="color: #0066CC; margin: 0;">RAPID INNOVATION</h1>
+            {% endif %}
+        </div>
+        
+        <!-- Title -->
+        <h1 class="title">EXPERIENCE CERTIFICATE</h1>
+        
+        <!-- Date -->
+        <div class="date">
+            <p>Date: {{ issue_date }}</p>
+        </div>
+        
+        <!-- To Whom It May Concern -->
+        <p class="to-whom">TO WHOMSOEVER IT MAY CONCERN</p>
+        
+        <!-- Content -->
+        <div class="content">
+            <p>This is to certify that <strong>Mr/Ms. {{ employee_name }}</strong> worked as the <strong>{{ designation }}</strong> with <strong>{{ company_name }}</strong> from <strong>{{ joining_date }}</strong> to <strong>{{ leaving_date }}</strong>.</p>
+            
+            <p>During {{ gender_pronoun }} employment with Rapid Innovation, we found {{ gender_pronoun }} performance to be satisfactory.</p>
+            
+            {% if dues_settled %}
+            <p>All dues are settled.</p>
+            {% else %}
+            <p>All dues are not settled.</p>
+            {% endif %}
+            
+            <p>We wish {{ gender_pronoun }} success in {{ gender_pronoun }} future endeavors.</p>
+        </div>
+        
+        <!-- Signature Section -->
+        <div class="signature-section">
+            <p>Sincerely,</p>
+            <br><br><br>
+            <p>
+                <strong>{{ hr_manager_name }}</strong><br>
+                {{ hr_manager_designation }}
+            </p>
+        </div>
+    </div>
+</body>
+</html>
