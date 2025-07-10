@@ -1,9 +1,9 @@
 import os
 import shutil
 import logging
+import re
 from datetime import datetime
 from typing import Dict, List, Any, Optional
-from werkzeug.utils import secure_filename
 from database.connection import get_db_session
 from database.models import Document, Employee, OnboardingChecklist, DocumentType, EmployeeType
 from modules.email.email_Sender import EmailSender
@@ -11,6 +11,16 @@ from config import config
 from utils.helpers import is_valid_file_type, sanitize_filename, format_file_size
 
 logger = logging.getLogger(__name__)
+
+def secure_filename(filename):
+    """Make a filename safe for use on filesystem."""
+    # Remove path separators and dangerous characters
+    filename = re.sub(r'[^\w\s-.]', '', filename)
+    # Replace spaces with underscores
+    filename = re.sub(r'\s+', '_', filename)
+    # Remove leading/trailing dots and spaces
+    filename = filename.strip('. ')
+    return filename or 'unnamed_file'
 
 class DocumentCollector:
     """Handle document collection for employees"""
