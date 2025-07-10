@@ -1,5 +1,4 @@
 import streamlit as st
-import streamlit_authenticator as stauth
 from datetime import datetime, date
 import pandas as pd
 from config import config
@@ -93,66 +92,39 @@ st.markdown("""
 init_session_state()
 
 def setup_authentication():
-    """Setup authentication for the application - Admin only"""
-    names     = ['HR Admin']
-    usernames = ['admin']
-    passwords = ['admin123']
-    roles     = ['admin']
+    """Setup simple authentication system"""
+    # Simple password-based authentication for Streamlit Cloud
+    if 'authenticated' not in st.session_state:
+        st.session_state.authenticated = False
+        st.session_state.name = None
+        st.session_state.username = None
 
-    hashed_passwords = stauth.Hasher.hash_list(passwords)
-
-    # build the credentials dict - updated structure for newer streamlit-authenticator
-    credentials = {
-        'usernames': {
-            usernames[i]: {
-                'name': names[i],
-                'password': hashed_passwords[i],
-                'roles': [roles[i]],  # roles should be a list
-                'email': f"{usernames[i]}@rapidinnovation.com",
-                'logged_in': False
-            }
-            for i in range(len(usernames))
-        }
-    }
-
-    authenticator = stauth.Authenticate(
-        credentials,
-        'hr_automation_cookie',
-        'hr_automation_signature',
-        cookie_expiry_days=7
-    )
-
-    return authenticator
+    return None
 
 
 # Main application
 def main():
     """Main application function"""
-    authenticator = setup_authentication()
+    setup_authentication()
 
-    # Render login widget in sidebar
-    authenticator.login(location="sidebar")
-
-    # Get authentication state from session state
-    name = st.session_state.get('name')
-    authentication_status = st.session_state.get('authentication_status')
-    username = st.session_state.get('username')
-
-    if authentication_status == False:
-        st.sidebar.error('Username/password is incorrect')
-    elif authentication_status == None:
-        st.sidebar.warning('Please enter your username and password')
+    # Simple authentication check
+    if not st.session_state.authenticated:
         show_login_page()
-    elif authentication_status:
-        # Admin-only access
-        user_roles = st.session_state.get('roles', [])
-        user_role = user_roles[0] if user_roles else 'admin'
+        return
 
-        # Sidebar
-        with st.sidebar:
-            st.write(f'Welcome *{name}*')
-            st.write(f'Role: *{user_role.title()}*')
-            authenticator.logout(button_name='Logout', location='sidebar')
+    # Admin-only access
+    name = st.session_state.get('name', 'HR Admin')
+    user_role = 'admin'
+
+    # Sidebar
+    with st.sidebar:
+        st.write(f'Welcome *{name}*')
+        st.write(f'Role: *{user_role.title()}*')
+        if st.button('Logout'):
+            st.session_state.authenticated = False
+            st.session_state.name = None
+            st.session_state.username = None
+            st.rerun()
 
             st.divider()
 
@@ -180,26 +152,33 @@ def main():
 
 def show_login_page():
     """Show login page with company branding"""
-    col1, col2, col3 = st.columns([1, 2, 1])
+    _, col2, _ = st.columns([1, 2, 1])
     with col2:
         st.markdown("# 🏢 Rapid Innovation")
         st.markdown("### HR Automation System")
         st.markdown("---")
-        st.info("Please login using the sidebar to continue")
-        
+
+        with st.form("login_form"):
+            st.markdown("**Admin Login**")
+            username = st.text_input("Username")
+            password = st.text_input("Password", type="password")
+            login_button = st.form_submit_button("Login", type="primary")
+
+            if login_button:
+                if username == "admin" and password == "admin123":
+                    st.session_state.authenticated = True
+                    st.session_state.name = "HR Admin"
+                    st.session_state.username = "admin"
+                    st.success("Login successful!")
+                    st.rerun()
+                else:
+                    st.error("Invalid username or password")
+
         with st.expander("Demo Credentials"):
             st.markdown("""
             **HR Admin:**
             - Username: admin
             - Password: admin123
-            
-            **HR Manager:**
-            - Username: manager
-            - Password: manager123
-            
-            **Employee:**
-            - Username: employee
-            - Password: employee123
             """)
 
 def show_dashboard():
