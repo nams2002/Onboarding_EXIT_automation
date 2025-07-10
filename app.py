@@ -126,29 +126,28 @@ def main():
             st.session_state.username = None
             st.rerun()
 
-            st.divider()
+        st.divider()
 
-            # Admin-only navigation
-            page = st.selectbox(
-                'Navigation',
-                ['Dashboard', 'Onboarding', 'Offboarding', 'Employees',
-                 'Documents', 'Settings']
-            )
+        # Admin-only navigation
+        page = st.selectbox(
+            'Navigation',
+            ['Dashboard', 'Onboarding', 'Offboarding', 'Employees',
+             'Documents', 'Settings']
+        )
 
-        # Main content area - Admin only
-        if page == 'Dashboard':
-            show_dashboard()
-        elif page == 'Onboarding':
-            show_onboarding_page()
-        elif page == 'Offboarding':
-            show_offboarding_page()
-        elif page == 'Employees':
-            show_employees_page()
-        elif page == 'Documents':
-            show_documents_page()
-
-        elif page == 'Settings':
-            show_settings_page()
+    # Main content area - Admin only
+    if page == 'Dashboard':
+        show_dashboard()
+    elif page == 'Onboarding':
+        show_onboarding_page()
+    elif page == 'Offboarding':
+        show_offboarding_page()
+    elif page == 'Employees':
+        show_employees_page()
+    elif page == 'Documents':
+        show_documents_page()
+    elif page == 'Settings':
+        show_settings_page()
 
 def show_login_page():
     """Show login page with company branding"""
